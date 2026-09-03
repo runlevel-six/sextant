@@ -8,6 +8,52 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License"></a>
 </p>
 
+> [!IMPORTANT]
+> ## sextant has moved to Binnacle
+>
+> **New home: [runlevel-six/binnacle](https://github.com/runlevel-six/binnacle)**
+>
+> The tool is unchanged and still called `sextant`. What changed is where it
+> lives: it is now one of two binaries in the **Binnacle** repository, beside
+> `binnacle` — a server that serves the same fleet as a web page for people who
+> do not use a terminal client. A sextant is handheld; a binnacle is the fixed,
+> lit stand on the bridge that everyone reads.
+>
+> **The version line continues.** This repository's last release was `v1.7.0`;
+> the next release is `v1.8.0`, published from the Binnacle repository. Nothing
+> was reset and nothing was renumbered — `sextant --version` keeps counting up.
+>
+> **Upgrading:**
+>
+> ```sh
+> # Binaries now come from the binnacle releases page. Same archive name.
+> curl -sSfL https://github.com/runlevel-six/binnacle/releases/download/edge/sextant_edge_linux_amd64.tar.gz \
+>   | tar -xz sextant
+>
+> # With Go
+> go install github.com/runlevel-six/binnacle/cmd/sextant@latest
+> ```
+>
+> **If you import the packages:** the module path changed, so
+> `github.com/runlevel-six/sextant/pkg/...` becomes
+> `github.com/runlevel-six/binnacle/pkg/...`. The package names and the exported
+> API are the same; only the path moved.
+>
+> **Why:** the two were already most of the same program. They read the same
+> Cluster API, Metal3 and subsystem sources through the same collectors, and
+> they have to reach the same conclusions about what they read — whether a
+> cordoned node is expected or alarming, whether a pod that is merely starting
+> counts as unhealthy, what a degraded subsystem means for a cluster overall.
+> In two repositories that overlap is two implementations of one judgement, and
+> they drift: the same cluster reads healthy on one screen and not on the other,
+> with nothing to say which is right. Together, the collectors and the verdicts
+> are shared code, and each front end is left doing the only part that genuinely
+> differs — one draws a terminal, the other a web page.
+>
+> **This repository is archived.** Releases up to `v1.7.0` stay downloadable and
+> its history stays readable, but fixes and new work land in Binnacle. Please
+> file issues there.
+
 A terminal dashboard for **Cluster API on bare metal**.
 
 Watch a rolling upgrade move across `Machine` → `Metal3Machine` →
